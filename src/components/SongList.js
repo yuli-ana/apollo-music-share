@@ -61,7 +61,7 @@ function Song({ song }) {
                 <CardMedia className={classes.thumbnail} image={thumbnail} />
                 <div className={classes.songInfo}>
                     <CardContent >
-                        <Typography gatterBottom variant="h5" component="h2">
+                        <Typography gutterBottom variant="h5" component="h2">
                             {title}
                         </Typography>
                         <Typography variant="body1" component="p" color="textSecondary">
