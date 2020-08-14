@@ -1,5 +1,5 @@
 import React from 'react';
-import { CircularProgress, Card, CardMedia, CardContent, Typography, CardActions, IconButton } from '@material-ui/core';
+import { CircularProgress, Card, CardMedia, CardContent, Typography, CardActions, IconButton, makeStyles } from '@material-ui/core';
 import { PlayArrow, Save } from '@material-ui/icons';
 
 function SongList() {
@@ -30,16 +30,38 @@ function SongList() {
     ))}</div>;
 }
 
+const useStyles = makeStyles(theme => ({
+    container: {
+        margin: theme.spacing()
+    },
+    songInfoContainer: {
+        display: 'flex',
+        alignItems: 'center'
+    },
+    songInfo: {
+        width: '100%',
+        display: 'flex',
+        justifyContent: 'space-between'
+    },
+    thumbnail: {
+        objectFit: 'cover',
+        width: 140,
+        height: 140
+    }
+}))
+
 function Song({ song }) {
     const { title, artist, thumbnail } = song;
 
+    const classes = useStyles();
+
     return (
-        <Card>
-            <div>
-                <CardMedia image={thumbnail} />
-                <div>
-                    <CardContent>
-                        <Typography gatterBottom variant="h2" component="h2">
+        <Card className={classes.container}>
+            <div className={classes.songInfoContainer}>
+                <CardMedia className={classes.thumbnail} image={thumbnail} />
+                <div className={classes.songInfo}>
+                    <CardContent >
+                        <Typography gatterBottom variant="h5" component="h2">
                             {title}
                         </Typography>
                         <Typography variant="body1" component="p" color="textSecondary">
@@ -51,7 +73,7 @@ function Song({ song }) {
                             <PlayArrow />
                         </IconButton>
                         <IconButton size="small" color="secondary">
-                            <Save />
+                            <Save color="secondary" />
                         </IconButton>
                     </CardActions>
                 </div>
