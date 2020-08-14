@@ -3,8 +3,10 @@ import Header from './components/Header';
 import SongPlayer from './components/SongPlayer';
 import SongList from './components/SongList';
 import AddSong from './components/AddSong';
-import { Grid, useMediaQuery } from '@material-ui/core';
+import { Grid, useMediaQuery, Hidden } from '@material-ui/core';
 
+// Hide elements without conditions, using Hidden component
+// Wrap component in a Hidden comp and specify on it at what breakpoint I want to be hidden on
 
 
 
@@ -19,9 +21,12 @@ function App() {
 
   const greaterThanMd = useMediaQuery(theme => theme.breakpoints.up('md'));
 
+  /* {greaterThanSM && <Header />} */
   return (
     <>
-      {greaterThanSM && <Header />}
+      <Hidden only="xs">
+        <Header />
+      </Hidden>
       <Grid container spacing={3}>
         <Grid style={
           {
