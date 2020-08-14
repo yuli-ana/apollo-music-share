@@ -1,10 +1,40 @@
 import React, { useState } from 'react';
-import { TextField, InputAdornment, Button, Dialog, DialogTitle, DialogContent, DialogActions } from '@material-ui/core';
+import {
+    TextField,
+    InputAdornment,
+    Button,
+    Dialog,
+    DialogTitle,
+    DialogContent,
+    DialogActions,
+    makeStyles
+} from '@material-ui/core';
 import { Link, AddBoxOutlined } from '@material-ui/icons';
 
-function AddSong() {
-    const [dialog, setDialog] = useState(false);
+// Custom styles 
+const useStyles = makeStyles(theme => ({
+    container: {
+        display: "flex",
+        alignItems: 'center'
+    },
+    urLInput: {
+        margin: theme.spacing(1),
+    },
+    addSongButton: {
+        margin: theme.spacing(1),
+    },
+    dialog: {
+        textAlign: 'center'
+    },
+    thumbnail: {
+        width: '90%'
+    }
 
+}))
+
+function AddSong() {
+    const classes = useStyles();
+    const [dialog, setDialog] = useState(false);
 
     // Open dialog
     function handleDialog(e) {
@@ -18,8 +48,9 @@ function AddSong() {
     }
 
     return (
-        <div>
+        <div className={classes.container}>
             <Dialog
+                className={classes.dialog}
                 open={dialog}
                 onClose={handleCloseDialog}
             >
@@ -27,7 +58,27 @@ function AddSong() {
                 <DialogContent>
                     <img
                         src="https://picsum.photos/200"
-                        alt="Song thumbnail" />
+                        alt="Song thumbnail"
+                        className={classes.thumbnail}
+                    />
+                    <TextField
+                        margin="dense"
+                        name="title"
+                        label="Title"
+                        fullWidth
+                    />
+                    <TextField
+                        margin="dense"
+                        name="artist"
+                        label="Artist"
+                        fullWidth
+                    />
+                    <TextField
+                        margin="dense"
+                        name="thumbnail"
+                        label="Thumbnail"
+                        fullWidth
+                    />
                 </DialogContent>
                 <DialogActions>
                     <Button
@@ -36,40 +87,30 @@ function AddSong() {
                     >
                         Cancel
                     </Button>
+                    <Button
+                        variant="outlined"
+                        color="primary"
+                    >
+                        Add Song
+                    </Button>
                 </DialogActions>
-                <TextField
-                    margin="dense"
-                    name="title"
-                    label="Title"
-                    fullWidth
-                />
-                <TextField
-                    margin="dense"
-                    name="artist"
-                    label="Artist"
-                    fullWidth
-                />
-                <TextField
-                    margin="dense"
-                    name="thumbnail"
-                    label="Thumbnail"
-                    fullWidth
-                />
             </Dialog>
             <TextField
+                className={classes.urLInput}
                 placeholder="Add Youtube or Soundcloud url"
                 fullWidth
                 margin="normal"
                 type="url"
-                inputProps={{
+                InputProps={{
                     startAdornment: (
-                        <InputAdornment>
+                        <InputAdornment position="start">
                             <Link />
                         </InputAdornment>
                     )
                 }}
             />
             <Button
+                className={classes.addSongButton}
                 onClick={handleDialog}
                 variant="contained"
                 color="primary"
