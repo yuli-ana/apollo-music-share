@@ -15,7 +15,7 @@ function App() {
   // const matches = useMediaQuery('(min-width: 600px)');
 
   // I can use the theme data as well as its built-in values to set specific breakpoints (down, up)
-  const greaterThanMd = useMediaQuery(theme => theme.breakpoints.down('md'));
+  const greaterThanMd = useMediaQuery(theme => theme.breakpoints.up('md'));
 
   return (
     <>
@@ -38,8 +38,8 @@ function App() {
               : {
                 position: 'fixed',
                 width: '100%',
-                bottom: 0,
-                left: 0
+                left: 0,
+                bottom: 0
               }
           }
           item
