@@ -15,13 +15,19 @@ function App() {
   // const matches = useMediaQuery('(min-width: 600px)');
 
   // I can use the theme data as well as its built-in values to set specific breakpoints (down, up)
+  const greaterThanSM = useMediaQuery(theme => theme.breakpoints.up('sm'));
+
   const greaterThanMd = useMediaQuery(theme => theme.breakpoints.up('md'));
 
   return (
     <>
-      <Header />
+      {greaterThanSM && <Header />}
       <Grid container spacing={3}>
-        <Grid style={{ paddingTop: 100 }} item xs={12} md={7}>
+        <Grid style={
+          {
+            paddingTop: greaterThanSM ? 80 : 10
+          }
+        } item xs={12} md={7}>
           <AddSong />
           <SongList />
         </Grid>
