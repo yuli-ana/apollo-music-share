@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import App from './App';
 import { MuiThemeProvider, CssBaseline } from '@material-ui/core';
 import theme from './theme';
-import { ApolloProvider } from '@apollo/react-hooks';
+import { ApolloProvider } from '@apollo/client';
 import client from './graphQL/client';
 
 

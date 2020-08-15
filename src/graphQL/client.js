@@ -1,8 +1,8 @@
-import ApolloClient from 'apollo-boost';
-
+import { ApolloClient, InMemoryCache } from '@apollo/client';
 
 const client = new ApolloClient({
-    uri: "",
-})
+    uri: 'https://devoted-insect-74.hasura.app/v1/graphql',
+    cache: new InMemoryCache()
+});
 
 export default client;
