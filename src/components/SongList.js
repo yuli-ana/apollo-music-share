@@ -25,8 +25,6 @@ function SongList() {
         );
     }
 
-    console.log(data.error);
-
     if (error) return <div>Error fetching songs</div>
 
     return <div>{data.songs.map(song => (

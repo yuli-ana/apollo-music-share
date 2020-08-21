@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import QueuedSongList from './QueuedSongList';
 import {
     TextField,
     InputAdornment,
@@ -12,6 +13,7 @@ import {
 import { Link, AddBoxOutlined } from '@material-ui/icons';
 import SoundcloudPlayer from 'react-player/lib/players/SoundCloud';
 import YoutubePlayer from 'react-player/lib/players/YouTube';
+import ReactPlayer from 'react-player';
 
 // Custom styles 
 const useStyles = makeStyles(theme => ({
@@ -39,6 +41,12 @@ function AddSong() {
     const [playable, setPlayable] = useState(false);
     const classes = useStyles();
     const [dialog, setDialog] = useState(false);
+    const [song, setSong] = useState({
+        duration: 0,
+        title: "",
+        artist: "",
+        thumbnail: ""
+    })
 
     useEffect(() => {
         const isPlayable = SoundcloudPlayer.canPlay(url) || YoutubePlayer.canPlay(url);
@@ -62,6 +70,64 @@ function AddSong() {
         setDialog(false);
     }
 
+    async function handleEditSong({ player }) {
+        const nestedPlayer = player.player.player;
+        let songData;
+
+        if (nestedPlayer.getVideoData) {
+            songData = getYouTubeInfo(nestedPlayer);
+        } else if (nestedPlayer.getCurrentSound) {
+            songData = await getSoundCloudInfo(nestedPlayer);
+        }
+
+        setSong({ ...songData, url });
+
+    }
+
+    function getYouTubeInfo(player) {
+        const duration = player.getDuration();
+        const { title, video_id, author } = player.getVideoData();
+        const thumbnail = `http://img.youtube.com/vi/${video_id}/0.jpg`;
+
+        return {
+            duration,
+            title,
+            artist: author,
+            thumbnail
+        }
+    }
+
+    function getSoundCloudInfo(player) {
+        return new Promise(resolve => {
+            player.getCurrentSound(songData => {
+                if (songData) {
+                    resolve({
+                        duration: Number(songData.duration / 1000),
+                        title: songData.title,
+                        artist: songData.user.username,
+                        thumbnail: songData.artwork_url.replace('-large', '-t500x500')
+                    })
+                }
+            });
+        })
+    }
+
+    function handleAddSong() {
+        return (
+            <QueuedSongList song={song} />
+        )
+    }
+
+    function handleChangeSong(e) {
+        const { name, value } = e.target;
+        setSong(prevSong => ({
+            ...prevSong,
+            [name]: value
+        }))
+    }
+
+    const { title, artist, thumbnail } = song;
+
     return (
         <div className={classes.container}>
             <Dialog
@@ -72,26 +138,32 @@ function AddSong() {
                 <DialogTitle>Edit Song</DialogTitle>
                 <DialogContent>
                     <img
-                        src="https://picsum.photos/200"
+                        src={thumbnail}
                         alt="Song thumbnail"
                         className={classes.thumbnail}
                     />
                     <TextField
+                        onChange={handleChangeSong}
                         margin="dense"
                         name="title"
                         label="Title"
+                        value={title}
                         fullWidth
                     />
                     <TextField
+                        onChange={handleChangeSong}
                         margin="dense"
                         name="artist"
                         label="Artist"
+                        value={artist}
                         fullWidth
                     />
                     <TextField
+                        onChange={handleChangeSong}
                         margin="dense"
                         name="thumbnail"
                         label="Thumbnail"
+                        value={thumbnail}
                         fullWidth
                     />
                 </DialogContent>
@@ -105,6 +177,7 @@ function AddSong() {
                     <Button
                         variant="outlined"
                         color="primary"
+                        onClick={handleAddSong}
                     >
                         Add Song
                     </Button>
@@ -127,6 +200,7 @@ function AddSong() {
                 }}
             />
             <Button
+                // If the song isn't playable disable button
                 disabled={!playable}
                 className={classes.addSongButton}
                 onClick={handleDialog}
@@ -136,6 +210,7 @@ function AddSong() {
             >
                 Add
             </Button>
+            <ReactPlayer url={url} hidden onReady={handleEditSong} />
         </div>
     )
 }
