@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
     TextField,
     InputAdornment,
@@ -10,6 +10,8 @@ import {
     makeStyles
 } from '@material-ui/core';
 import { Link, AddBoxOutlined } from '@material-ui/icons';
+import SoundcloudPlayer from 'react-player/lib/players/SoundCloud';
+import YoutubePlayer from 'react-player/lib/players/YouTube';
 
 // Custom styles 
 const useStyles = makeStyles(theme => ({
@@ -33,13 +35,26 @@ const useStyles = makeStyles(theme => ({
 }))
 
 function AddSong() {
+    const [url, setUrl] = useState('');
+    const [playable, setPlayable] = useState(false);
     const classes = useStyles();
     const [dialog, setDialog] = useState(false);
+
+    useEffect(() => {
+        const isPlayable = SoundcloudPlayer.canPlay(url) || YoutubePlayer.canPlay(url);
+
+        setPlayable(isPlayable);
+    }, [url])
+
 
     // Open dialog
     function handleDialog(e) {
         e.preventDefault();
         setDialog(true);
+    }
+
+    function handleUrlChange(e) {
+        setUrl(e.target.value);
     }
 
     // Close dialog
@@ -97,6 +112,8 @@ function AddSong() {
             </Dialog>
             <TextField
                 className={classes.urLInput}
+                onChange={handleUrlChange}
+                value={url}
                 placeholder="Add Youtube or Soundcloud url"
                 fullWidth
                 margin="normal"
@@ -110,6 +127,7 @@ function AddSong() {
                 }}
             />
             <Button
+                disabled={!playable}
                 className={classes.addSongButton}
                 onClick={handleDialog}
                 variant="contained"
