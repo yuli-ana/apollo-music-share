@@ -10,11 +10,6 @@ function SongList() {
 
     const { data, loading, error } = useQuery(GET_SONGS);
 
-    // const song = {
-    //     title: "LUNE",
-    //     artist: "MOON",
-    //     thumbnail: "https://picsum.photos/id/237/100/100"
-    // }
 
     // If true show loading spinner
     if (loading) {
@@ -27,8 +22,10 @@ function SongList() {
             }}>
                 <CircularProgress />
             </div>
-        )
+        );
     }
+
+    console.log(data.error);
 
     if (error) return <div>Error fetching songs</div>
 
@@ -88,4 +85,5 @@ function Song({ song }) {
         </Card>
     )
 }
+
 export default SongList;
