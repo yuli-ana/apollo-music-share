@@ -48,12 +48,15 @@ const DEFAULT_SONG = {
 
 function AddSong() {
     const [url, setUrl] = useState('');
-    // Get an error data from useMutation, now it's available for everything in return
+    // Distract a 2 value 'error data' from useMutation, now it's available for everything within return
     const [addSong, { error }] = useMutation(ADD_SONG);
     const [playable, setPlayable] = useState(false);
     const classes = useStyles();
     const [dialog, setDialog] = useState(false);
     const [song, setSong] = useState(DEFAULT_SONG);
+
+    // Returns error object where more info about error and validation
+    // console.dir(error);
 
     useEffect(() => {
         const isPlayable = SoundcloudPlayer.canPlay(url) || YoutubePlayer.canPlay(url);
@@ -148,6 +151,13 @@ function AddSong() {
 
     }
 
+
+    function handleError(field){
+        // Only if an error then I want to return computed graphQL value
+        // return error && error.graphQLErrors[0].extensions.path.includes(field);
+        return error?.graphQLErrors[0]?.extensions?.path.includes(field);
+    }
+
     function handleChangeSong(e) {
         const { name, value } = e.target;
         setSong(prevSong => ({
@@ -179,6 +189,8 @@ function AddSong() {
                         label="Title"
                         value={title}
                         fullWidth
+                        error={handleError('title')}
+                        helperText={handleError('title') && "Fill out field"}
                     />
                     <TextField
                         onChange={handleChangeSong}
@@ -187,6 +199,8 @@ function AddSong() {
                         label="Artist"
                         value={artist}
                         fullWidth
+                        error={handleError('artist')}
+                        helperText={handleError('artist') && "Fill out field"}
                     />
                     <TextField
                         onChange={handleChangeSong}
@@ -195,6 +209,8 @@ function AddSong() {
                         label="Thumbnail"
                         value={thumbnail}
                         fullWidth
+                        error={handleError('thumbnail')}
+                        helperText={handleError('thumbnail') && "Fill out field"}
                     />
                 </DialogContent>
                 <DialogActions>
