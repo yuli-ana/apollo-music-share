@@ -2,14 +2,11 @@ import React from 'react';
 import { Typography, Avatar, IconButton, makeStyles, useMediaQuery } from '@material-ui/core';
 import { Delete } from '@material-ui/icons';
 
-function QueuedSongList() {
+function QueuedSongList({ title, artist, thumbnail }) {
     const greaterThanMd = useMediaQuery(theme => theme.breakpoints.up('md'));
 
-    const song = {
-        title: "LUNE",
-        artist: "MOON",
-        thumbnail: "https://picsum.photos/id/237/100/100"
-    }
+
+
 
     return greaterThanMd && (
         <div style={{ margin: '10px 0' }}>
