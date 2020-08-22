@@ -8,12 +8,15 @@ import {
     DialogTitle,
     DialogContent,
     DialogActions,
-    makeStyles
+    makeStyles,
+    duration
 } from '@material-ui/core';
 import { Link, AddBoxOutlined } from '@material-ui/icons';
 import SoundcloudPlayer from 'react-player/lib/players/SoundCloud';
 import YoutubePlayer from 'react-player/lib/players/YouTube';
 import ReactPlayer from 'react-player';
+import ADD_SONG from '../graphQL/mutations';
+import { useMutation } from '@apollo/client';
 
 // Custom styles 
 const useStyles = makeStyles(theme => ({
@@ -38,6 +41,7 @@ const useStyles = makeStyles(theme => ({
 
 function AddSong() {
     const [url, setUrl] = useState('');
+    const [addSong] = useMutation(ADD_SONG);
     const [playable, setPlayable] = useState(false);
     const classes = useStyles();
     const [dialog, setDialog] = useState(false);
@@ -113,9 +117,17 @@ function AddSong() {
     }
 
     function handleAddSong() {
-        return (
-            <QueuedSongList song={song} />
-        )
+      //  addSong({ variables: { ...song } })
+      const { title, artist, thumbnail } = song;
+
+
+      addSong({
+        url: url.length > 0 ? url : null,
+        title: title.length > 0 ? title : null,
+        artist: artist.length > 0 ? artist : null,
+        thumbnail: thumbnail.length > 0 ? thumbnail : null,
+        duration: duration > 0 ? duration : null
+      })
     }
 
     function handleChangeSong(e) {
