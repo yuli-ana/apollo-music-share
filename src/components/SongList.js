@@ -1,14 +1,14 @@
 import React from 'react';
 import { CircularProgress, Card, CardMedia, CardContent, Typography, CardActions, IconButton, makeStyles } from '@material-ui/core';
 import { PlayArrow, Save } from '@material-ui/icons';
-import { useQuery } from '@apollo/client';
-import { GET_SONGS } from '../graphQL/queries';
+import { useSubscription } from '@apollo/client';
+import { GET_SONGS } from '../graphQL/subscriptions';
 
 function SongList() {
     // Remove loading variable instead use hook useQuery
     // let loading = false;
 
-    const { data, loading, error } = useQuery(GET_SONGS);
+    const { data, loading, error } = useSubscription(GET_SONGS);
 
 
     // If true show loading spinner
