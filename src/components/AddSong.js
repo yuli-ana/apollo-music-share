@@ -39,18 +39,21 @@ const useStyles = makeStyles(theme => ({
 
 }))
 
+const DEFAULT_SONG = {
+    duration: 0,
+    title: "",
+    artist: "",
+    thumbnail: ""
+}
+
 function AddSong() {
     const [url, setUrl] = useState('');
-    const [addSong] = useMutation(ADD_SONG);
+    // Get an error data from useMutation, now it's available for everything in return
+    const [addSong, { error }] = useMutation(ADD_SONG);
     const [playable, setPlayable] = useState(false);
     const classes = useStyles();
     const [dialog, setDialog] = useState(false);
-    const [song, setSong] = useState({
-        duration: 0,
-        title: "",
-        artist: "",
-        thumbnail: ""
-    })
+    const [song, setSong] = useState(DEFAULT_SONG);
 
     useEffect(() => {
         const isPlayable = SoundcloudPlayer.canPlay(url) || YoutubePlayer.canPlay(url);
@@ -116,18 +119,33 @@ function AddSong() {
         })
     }
 
-    function handleAddSong() {
-      //  addSong({ variables: { ...song } })
-      const { title, artist, thumbnail } = song;
+    async function handleAddSong() {
+        try {
+            //  addSong({ variables: { ...song } })
+            const { url, duration, title, artist, thumbnail } = song;
+            // addSong returns a  promise
+            await addSong({
+                variables: {
+                    url: url.length > 0 ? url : null, //check if properties aren't empty
+                    title: title.length > 0 ? title : null,
+                    artist: artist.length > 0 ? artist : null,
+                    thumbnail: thumbnail.length > 0 ? thumbnail : null,
+                    duration: duration > 0 ? duration : null
+                }
+            })
+
+            // When song is added: 
+            //1. Close dialog
+            //2. Clear dialog and url
+            handleCloseDialog();
+            setSong(DEFAULT_SONG);
+            setUrl("");
+        } catch (error) {
+            console.error("Error adding song", error); // hasura throwing an error/ graphQL related error
+
+        }
 
 
-      addSong({
-        url: url.length > 0 ? url : null,
-        title: title.length > 0 ? title : null,
-        artist: artist.length > 0 ? artist : null,
-        thumbnail: thumbnail.length > 0 ? thumbnail : null,
-        duration: duration > 0 ? duration : null
-      })
     }
 
     function handleChangeSong(e) {
