@@ -4,14 +4,31 @@ import SongPlayer from './components/SongPlayer';
 import SongList from './components/SongList';
 import AddSong from './components/AddSong';
 import { Grid, useMediaQuery, Hidden } from '@material-ui/core';
+import songReducer from './reducer';
 
 // Hide elements without conditions, using Hidden component
 // Wrap component in a Hidden comp and specify on it at what breakpoint I want to be hidden on
 
 
+export const SongContext = React.createContext({
+  song: {
+    id: "3561c605-d486-44cb-9bba-d1beeb641778",
+    title: "LUNE",
+    artist: "MOON",
+    thumbnail: "https://picsum.photos/id/237/100/100",
+    duration: 250,
+    url: "https://music.youtube.com/watch?v=--ZtUFsIgMk&feature=share"
+  },
+  isPlaying: false
+})
 
 
 function App() {
+
+  const initialSongState = React.useContext(SongContext);
+
+  const [state, dispatch] = React.useReducer(songReducer, initialSongState);
+
   // Media query breakpoint, hook comes from material-ui library
   // If min-width === 600px ? true : false 
   // const matches = useMediaQuery('(min-width: 600px)');
@@ -23,7 +40,7 @@ function App() {
 
   /* {greaterThanSM && <Header />} */
   return (
-    <>
+    <SongContext.Provider value={{ state, dispatch }} >
       <Hidden only="xs">
         <Header />
       </Hidden>
@@ -59,7 +76,7 @@ function App() {
           <SongPlayer />
         </Grid>
       </Grid>
-    </>
+    </SongContext.Provider>
   )
 }
 
