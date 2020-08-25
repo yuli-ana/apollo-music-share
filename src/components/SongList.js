@@ -56,13 +56,10 @@ const useStyles = makeStyles(theme => ({
 function Song({ song }) {
     const { title, artist, thumbnail, id } = song;
     const [currentSongPlaying, setCurrentSongPlaying] = useState(false);
-    // Pass state to song component to use the same action for playButton 
-    const { state } = useContext(SongContext);
+    const { state, dispatch } = useContext(SongContext);
 
+    console.log(song);
 
-    // function handlePlaySong() {
-    //     dispatch(state.isPlaying ? { type: "PAUSE_SONG" } : { type: "PLAY_SONG" })
-    // }
 
     useEffect(() => {
         const isSongPlaying = state.isPlaying && id === state.song.id;
@@ -71,6 +68,12 @@ function Song({ song }) {
     }, [id, state.isPlaying, state.song.id])
 
     const classes = useStyles();
+
+    function handleTogglePlay() {
+        dispatch({ type: "SET_SONG", payload: { song } })
+
+        dispatch(state.isPlaying ? { type: "PAUSE_SONG" } : { type: "PLAY_SONG" })
+    }
 
     return (
         <Card className={classes.container}>
@@ -86,7 +89,7 @@ function Song({ song }) {
                         </Typography>
                     </CardContent>
                     <CardActions>
-                        <IconButton size="small" color="primary">
+                        <IconButton onClick={handleTogglePlay} size="small" color="primary">
                             {currentSongPlaying ? <Pause /> : <PlayArrow />}
                         </IconButton>
                         <IconButton size="small" color="secondary">
