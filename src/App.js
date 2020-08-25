@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import Header from './components/Header';
 import SongPlayer from './components/SongPlayer';
 import SongList from './components/SongList';
@@ -20,7 +20,9 @@ export const SongContext = React.createContext({
     url: "https://music.youtube.com/watch?v=--ZtUFsIgMk&feature=share"
   },
   isPlaying: false
-})
+});
+
+SongContext.displayName = "SongContext";
 
 
 function App() {
@@ -37,6 +39,8 @@ function App() {
   const greaterThanSM = useMediaQuery(theme => theme.breakpoints.up('sm'));
 
   const greaterThanMd = useMediaQuery(theme => theme.breakpoints.up('md'));
+
+  console.log(state, "This is my state");
 
   /* {greaterThanSM && <Header />} */
   return (
