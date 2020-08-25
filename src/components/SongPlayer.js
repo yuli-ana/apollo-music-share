@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import QueuedSongList from './QueuedSongList';
 import { Card, CardContent, Typography, IconButton, Slider, CardMedia, makeStyles } from '@material-ui/core';
 import { SkipPrevious, PlayArrow, SkipNext } from '@material-ui/icons';
+import { SongContext } from '../App';
 
 const useStyles = makeStyles(theme => ({
     container: {
@@ -32,7 +33,15 @@ const useStyles = makeStyles(theme => ({
 }))
 
 function SongPlayer() {
+    const { state, dispatch } = useContext(SongContext);
     const classes = useStyles();
+
+
+    function handleTogglePlay() {
+        dispatch({
+            type: "PLAY_SONG"
+        });
+    }
 
     return (
         <>
@@ -40,17 +49,17 @@ function SongPlayer() {
                 <div className={classes.details}>
                     <CardContent className={classes.content}>
                         <Typography variant="h5" component="h3">
-                            Title
+                            {state.song.title}
                         </Typography>
                         <Typography variant="subtitle1" component="p" color="textSecondary">
-                            Artist
+                            {state.song.title}
                         </Typography>
                     </CardContent>
                     <div className={classes.controls}>
                         <IconButton>
                             <SkipPrevious />
                         </IconButton>
-                        <IconButton>
+                        <IconButton onClick={handleTogglePlay}>
                             <PlayArrow className={classes.playIcon} />
                         </IconButton>
                         <IconButton>
@@ -69,7 +78,7 @@ function SongPlayer() {
                 </div>
                 <CardMedia
                     className={classes.thumbnail}
-                    image="https://picsum.photos/id/237/100/100"
+                    image={state.song.thumbnail}
                 />
             </Card>
             <QueuedSongList />
