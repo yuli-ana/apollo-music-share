@@ -1,8 +1,9 @@
-import React from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { CircularProgress, Card, CardMedia, CardContent, Typography, CardActions, IconButton, makeStyles } from '@material-ui/core';
-import { PlayArrow, Save } from '@material-ui/icons';
+import { PlayArrow, Save, Pause } from '@material-ui/icons';
 import { useSubscription } from '@apollo/client';
 import { GET_SONGS } from '../graphQL/subscriptions';
+import { SongContext } from '../App';
 
 function SongList() {
     // Remove loading variable instead use hook useQuery
@@ -53,7 +54,21 @@ const useStyles = makeStyles(theme => ({
 }))
 
 function Song({ song }) {
-    const { title, artist, thumbnail } = song;
+    const { title, artist, thumbnail, id } = song;
+    const [currentSongPlaying, setCurrentSongPlaying] = useState(false);
+    // Pass state to song component to use the same action for playButton 
+    const { state } = useContext(SongContext);
+
+
+    // function handlePlaySong() {
+    //     dispatch(state.isPlaying ? { type: "PAUSE_SONG" } : { type: "PLAY_SONG" })
+    // }
+
+    useEffect(() => {
+        const isSongPlaying = state.isPlaying && id === state.song.id;
+        setCurrentSongPlaying(isSongPlaying);
+        // I want to identify song with it's id that's why sync it with state.song.id
+    }, [id, state.isPlaying, state.song.id])
 
     const classes = useStyles();
 
@@ -72,7 +87,7 @@ function Song({ song }) {
                     </CardContent>
                     <CardActions>
                         <IconButton size="small" color="primary">
-                            <PlayArrow />
+                            {currentSongPlaying ? <Pause /> : <PlayArrow />}
                         </IconButton>
                         <IconButton size="small" color="secondary">
                             <Save color="secondary" />
