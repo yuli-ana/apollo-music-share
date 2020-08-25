@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import QueuedSongList from './QueuedSongList';
 import { Card, CardContent, Typography, IconButton, Slider, CardMedia, makeStyles } from '@material-ui/core';
-import { SkipPrevious, PlayArrow, SkipNext } from '@material-ui/icons';
+import { SkipPrevious, PlayArrow, SkipNext, Pause } from '@material-ui/icons';
 import { SongContext } from '../App';
 
 const useStyles = makeStyles(theme => ({
@@ -38,9 +38,8 @@ function SongPlayer() {
 
 
     function handleTogglePlay() {
-        dispatch({
-            type: "PLAY_SONG"
-        });
+        // Toggle state
+        dispatch(state.isPlaying ? { type: "PAUSE_SONG" } : { type: "PLAY_SONG" })
     }
 
     return (
@@ -60,7 +59,8 @@ function SongPlayer() {
                             <SkipPrevious />
                         </IconButton>
                         <IconButton onClick={handleTogglePlay}>
-                            <PlayArrow className={classes.playIcon} />
+                            {/* Toggle icons */}
+                            {state.isPlaying ? <Pause className={classes.playIcon} /> : <PlayArrow className={classes.playIcon} />}
                         </IconButton>
                         <IconButton>
                             <SkipNext />
