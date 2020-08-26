@@ -2,7 +2,8 @@ import React from 'react';
 import { Typography, Avatar, IconButton, makeStyles, useMediaQuery } from '@material-ui/core';
 import { Delete } from '@material-ui/icons';
 
-function QueuedSongList() {
+function QueuedSongList({ queue }) {
+    console.log(queue);
     const greaterThanMd = useMediaQuery(theme => theme.breakpoints.up('md'));
 
     const song = {

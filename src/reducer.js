@@ -7,6 +7,7 @@ function songReducer(state, action) {
         case "SET_SONG":
             return {
                 ...state,
+                //replace song with a new song
                 song: action.payload.song,
             }
         default:
