@@ -40,8 +40,6 @@ function App() {
 
   const greaterThanMd = useMediaQuery(theme => theme.breakpoints.up('md'));
 
-  console.log(state, "This is my state");
-
   /* {greaterThanSM && <Header />} */
   return (
     <SongContext.Provider value={{ state, dispatch }} >

@@ -58,13 +58,9 @@ function Song({ song }) {
     const [currentSongPlaying, setCurrentSongPlaying] = useState(false);
     const { state, dispatch } = useContext(SongContext);
 
-    console.log(song);
-
-
     useEffect(() => {
         const isSongPlaying = state.isPlaying && id === state.song.id;
         setCurrentSongPlaying(isSongPlaying);
-        // I want to identify song with it's id that's why sync it with state.song.id
     }, [id, state.isPlaying, state.song.id])
 
     const classes = useStyles();
