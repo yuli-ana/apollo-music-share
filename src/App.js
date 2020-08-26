@@ -43,9 +43,9 @@ function App() {
   /* {greaterThanSM && <Header />} */
   return (
     <SongContext.Provider value={{ state, dispatch }} >
-      <Hidden only="xs">
+      {/* <Hidden only="xs">
         <Header />
-      </Hidden>
+      </Hidden> */}
       <Grid container spacing={3}>
         <Grid style={
           {
