@@ -1,9 +1,10 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { CircularProgress, Card, CardMedia, CardContent, Typography, CardActions, IconButton, makeStyles } from '@material-ui/core';
 import { PlayArrow, Save, Pause } from '@material-ui/icons';
-import { useSubscription } from '@apollo/client';
+import { useSubscription, useMutation } from '@apollo/client';
 import { GET_SONGS } from '../graphQL/subscriptions';
 import { SongContext } from '../App';
+import { ADD_OR_REMOVE_FROM_QUEUE } from '../graphQL/mutations';
 
 function SongList() {
     // Remove loading variable instead use hook useQuery
@@ -57,6 +58,7 @@ function Song({ song }) {
     const { title, artist, thumbnail, id } = song;
     const [currentSongPlaying, setCurrentSongPlaying] = useState(false);
     const { state, dispatch } = useContext(SongContext);
+    const [addOrRemoveFromQueue] = useMutation(ADD_OR_REMOVE_FROM_QUEUE);
 
     useEffect(() => {
         const isSongPlaying = state.isPlaying && id === state.song.id;
@@ -69,6 +71,13 @@ function Song({ song }) {
         dispatch({ type: "SET_SONG", payload: { song } })
 
         dispatch(state.isPlaying ? { type: "PAUSE_SONG" } : { type: "PLAY_SONG" })
+    }
+
+    function handleAddOrRemoveFromQueue() {
+        // __typename field which provides the name of the type we're working with
+        addOrRemoveFromQueue({
+            variables: { input: { ...song, __typename: "Song" } },
+        })
     }
 
     return (
@@ -88,7 +97,7 @@ function Song({ song }) {
                         <IconButton onClick={handleTogglePlay} size="small" color="primary">
                             {currentSongPlaying ? <Pause /> : <PlayArrow />}
                         </IconButton>
-                        <IconButton size="small" color="secondary">
+                        <IconButton onClick={handleAddOrRemoveFromQueue} size="small" color="secondary">
                             <Save color="secondary" />
                         </IconButton>
                     </CardActions>

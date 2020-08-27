@@ -15,7 +15,7 @@ import { Link, AddBoxOutlined } from '@material-ui/icons';
 import SoundcloudPlayer from 'react-player/lib/players/SoundCloud';
 import YoutubePlayer from 'react-player/lib/players/YouTube';
 import ReactPlayer from 'react-player';
-import ADD_SONG from '../graphQL/mutations';
+import { ADD_SONG } from '../graphQL/mutations';
 import { useMutation } from '@apollo/client';
 
 // Custom styles 
@@ -152,7 +152,7 @@ function AddSong() {
     }
 
 
-    function handleError(field){
+    function handleError(field) {
         // Only if an error then I want to return computed graphQL value
         // return error && error.graphQLErrors[0].extensions.path.includes(field);
         return error?.graphQLErrors[0]?.extensions?.path.includes(field);
