@@ -3,22 +3,22 @@ import { Typography, Avatar, IconButton, makeStyles, useMediaQuery } from '@mate
 import { Delete } from '@material-ui/icons';
 
 function QueuedSongList({ queue }) {
-    console.log(queue);
+
     const greaterThanMd = useMediaQuery(theme => theme.breakpoints.up('md'));
 
-    const song = {
-        title: "LUNE",
-        artist: "MOON",
-        thumbnail: "https://picsum.photos/id/237/100/100"
-    }
+    // const song = {
+    //     title: "LUNE",
+    //     artist: "MOON",
+    //     thumbnail: "https://picsum.photos/id/237/100/100"
+    // }
 
     return greaterThanMd && (
         <div style={{ margin: '10px 0' }}>
             <Typography color="textSecondary" variant="button">
                 QUEUE (5)
             </Typography>
-            {Array.from({ length: 5 }, () => song).map((song, i) => (
-                <QueuedSong key={i} song={song} />
+            {queue.map(song => (
+                <QueuedSong key={song.id} song={song} />
             ))}
         </div>
     )
