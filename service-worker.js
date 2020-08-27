@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
 
 importScripts(
-  "/apollo-music-share/precache-manifest.17fba63f06dbdd51a9289340c8b03589.js"
+  "/apollo-music-share/precache-manifest.1c9cb7ec97310db1c146ddde00f2bb9c.js"
 );
 
 self.addEventListener('message', (event) => {
