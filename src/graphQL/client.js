@@ -1,5 +1,6 @@
 import { ApolloClient, InMemoryCache, gql } from '@apollo/client';
 import { WebSocketLink } from 'apollo-link-ws';
+import { GET_QUEUED_SONGS } from './queries';
 
 // Mutation enables to add/remove items from the queue
 // TypeDefs(type definitions) property tells Apollo client about state I want to manage/ it creates a schema to tell apollo what I want to be querying, data itself, structure of data  and  mutations
@@ -45,7 +46,39 @@ const client = new ApolloClient({
     type Mutation {
         addOrRemoveFromQueue(input: SongInput): [Song]!
     }
-    `
+    `,
+    resolvers: {
+        Mutation: {
+            addOrRemoveFromQueue: (_, { input }, { cache }) => {
+                // Read query
+                const queryResult = cache.readQuery({
+                    query: GET_QUEUED_SONGS
+                })
+
+                // Manage, update data
+                if (queryResult) {
+                    const { queue } = queryResult;
+                    const isInQueue = queue.some(song => song.id === input.id);
+
+                    const newQueue = isInQueue ?
+                        queue.filter(song => song.id !== input.id)
+                        : [...queue, input];
+
+                    // Write back to the query that we read from
+
+                    cache.writeQuery({
+                        query: GET_QUEUED_SONGS,
+                        data: {
+                            queue: newQueue,
+                        }
+                    })
+
+                    return newQueue;
+                }
+                return [];
+            }
+        }
+    }
 });
 
 
