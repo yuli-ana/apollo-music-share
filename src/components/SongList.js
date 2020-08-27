@@ -58,7 +58,11 @@ function Song({ song }) {
     const { title, artist, thumbnail, id } = song;
     const [currentSongPlaying, setCurrentSongPlaying] = useState(false);
     const { state, dispatch } = useContext(SongContext);
-    const [addOrRemoveFromQueue] = useMutation(ADD_OR_REMOVE_FROM_QUEUE);
+    const [addOrRemoveFromQueue] = useMutation(ADD_OR_REMOVE_FROM_QUEUE, {
+        onCompleted: data => {
+            localStorage.setItem("queue", JSON.stringify(data.addOrRemoveFromQueue))
+        }
+    });
 
     useEffect(() => {
         const isSongPlaying = state.isPlaying && id === state.song.id;
