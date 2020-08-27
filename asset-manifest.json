@@ -1,19 +1,19 @@
 {
   "files": {
-    "main.js": "/apollo-music-share/static/js/main.c5e1bb14.chunk.js",
-    "main.js.map": "/apollo-music-share/static/js/main.c5e1bb14.chunk.js.map",
+    "main.js": "/apollo-music-share/static/js/main.214e043f.chunk.js",
+    "main.js.map": "/apollo-music-share/static/js/main.214e043f.chunk.js.map",
     "runtime-main.js": "/apollo-music-share/static/js/runtime-main.a6487277.js",
     "runtime-main.js.map": "/apollo-music-share/static/js/runtime-main.a6487277.js.map",
-    "static/js/2.ec384c03.chunk.js": "/apollo-music-share/static/js/2.ec384c03.chunk.js",
-    "static/js/2.ec384c03.chunk.js.map": "/apollo-music-share/static/js/2.ec384c03.chunk.js.map",
+    "static/js/2.cb918d21.chunk.js": "/apollo-music-share/static/js/2.cb918d21.chunk.js",
+    "static/js/2.cb918d21.chunk.js.map": "/apollo-music-share/static/js/2.cb918d21.chunk.js.map",
     "index.html": "/apollo-music-share/index.html",
-    "precache-manifest.1c9cb7ec97310db1c146ddde00f2bb9c.js": "/apollo-music-share/precache-manifest.1c9cb7ec97310db1c146ddde00f2bb9c.js",
+    "precache-manifest.ac56467c7a4bcef23e581c8e813ae4f5.js": "/apollo-music-share/precache-manifest.ac56467c7a4bcef23e581c8e813ae4f5.js",
     "service-worker.js": "/apollo-music-share/service-worker.js",
-    "static/js/2.ec384c03.chunk.js.LICENSE.txt": "/apollo-music-share/static/js/2.ec384c03.chunk.js.LICENSE.txt"
+    "static/js/2.cb918d21.chunk.js.LICENSE.txt": "/apollo-music-share/static/js/2.cb918d21.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
     "static/js/runtime-main.a6487277.js",
-    "static/js/2.ec384c03.chunk.js",
-    "static/js/main.c5e1bb14.chunk.js"
+    "static/js/2.cb918d21.chunk.js",
+    "static/js/main.214e043f.chunk.js"
   ]
 }
