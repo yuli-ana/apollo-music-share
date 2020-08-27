@@ -81,7 +81,16 @@ const client = new ApolloClient({
     }
 });
 
+// Our app reloads and: 
+// Queued items taken from localStorage
+// Put in our cache
+// And queried using a local query
+// And put in our queued songList component
 
+
+const hasQueue = Boolean(localStorage.getItem("queue"));
+
+// Writing this toa client (to the cache)
 client.writeQuery({
     query: gql`
       query GetQueue {
@@ -89,7 +98,7 @@ client.writeQuery({
       }
     `,
     data: {
-        queue: []
+        queue: hasQueue ? JSON.parse(localStorage.getItem("queue")) : [],
     }
 });
 
