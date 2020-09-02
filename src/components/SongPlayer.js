@@ -66,6 +66,10 @@ function SongPlayer() {
         setPlayed(newValue);
     }
 
+    function formatDuration(seconds){
+        return new Date(seconds * 1000).toISOString().substr(11, 8);
+    }
+
     return (
         <>
             <Card variant="outlined" className={classes.container}>
@@ -90,7 +94,7 @@ function SongPlayer() {
                             <SkipNext />
                         </IconButton>
                         <Typography variant="subtitle1" component="p" color="textSecondary">
-                            {playedSeconds}
+                            {formatDuration(playedSeconds)}
                         </Typography>
                     </div>
                     {/* Now slider is controlled by a state , I can't move it*/}
