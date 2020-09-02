@@ -1,5 +1,4 @@
 import { gql } from '@apollo/client';
-// All graphQL queries live here
 
 export const GET_SONGS = gql`
 subscription getSongs {

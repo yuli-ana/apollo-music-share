@@ -3,14 +3,13 @@ import { WebSocketLink } from 'apollo-link-ws';
 import { GET_QUEUED_SONGS } from './queries';
 
 // Mutation enables to add/remove items from the queue
-// TypeDefs(type definitions) property tells Apollo client about state I want to manage/ it creates a schema to tell apollo what I want to be querying, data itself, structure of data  and  mutations
+// TypeDefs(type definition) property tells Apollo client about state I want to manage/ it creates a schema to tell apollo what I want to be querying, data itself, structure of data  and  mutations
 
 
 //Instead of type Song create a custom type "input" object that collects all of the individual arguments that I normally pass to mutation 
 
 const client = new ApolloClient({
     link: new WebSocketLink({
-
         uri: 'wss://welcome-chipmunk-46.hasura.app/v1/graphql',
         options: {
             reconnect: true,
@@ -47,6 +46,7 @@ const client = new ApolloClient({
         addOrRemoveFromQueue(input: SongInput): [Song]!
     }
     `,
+
     resolvers: {
         Mutation: {
             addOrRemoveFromQueue: (_, { input }, { cache }) => {
@@ -90,7 +90,7 @@ const client = new ApolloClient({
 
 const hasQueue = Boolean(localStorage.getItem("queue"));
 
-// Writing this toa client (to the cache)
+// Writing this to a client (to the cache)
 client.writeQuery({
     query: gql`
       query GetQueue {
