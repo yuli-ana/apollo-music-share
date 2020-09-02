@@ -1,4 +1,4 @@
-import React, { useContext, useState, useRef } from 'react';
+import React, { useContext, useState, useRef, useEffect } from 'react';
 import QueuedSongList from './QueuedSongList';
 import { Card, CardContent, Typography, IconButton, Slider, CardMedia, makeStyles } from '@material-ui/core';
 import { SkipPrevious, PlayArrow, SkipNext, Pause } from '@material-ui/icons';
@@ -6,6 +6,7 @@ import { SongContext } from '../App';
 import { useQuery } from '@apollo/client';
 import { GET_QUEUED_SONGS } from '../graphQL/queries';
 import ReactPlayer from 'react-player';
+import songReducer from '../reducer';
 
 const useStyles = makeStyles(theme => ({
     container: {
@@ -46,7 +47,27 @@ function SongPlayer() {
 
     // Keeps track when the user seeking through the song changing the position of the slider
     const [seeking, setSeeking] = useState(false);
+    const [positionInQueue, setPositionInQueue] = useState(0);
 
+
+    useEffect(() => {
+       const songIndex = data.queue.findIndex(song => song.id === state.song.id)
+
+       setPositionInQueue(songIndex);
+    }, [data.queue, state.song.id])
+
+
+    console.log(data.queue);
+
+    useEffect(() => {
+        const nextSong = data.queue[positionInQueue + 1];
+
+        if( played === 1 && nextSong ){
+            setPlayed(0);
+            dispatch({ type: "SET_SONG", payload: { song: nextSong }})
+        }
+
+     }, [data.queue, played, dispatch, positionInQueue]);
 
     function handleTogglePlay() {
         // Toggle state
