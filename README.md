@@ -6,6 +6,6 @@ Don't worry if you close or refresh the app, all songs are stored in your browse
 
 Enjoy 🎶🎵🎶🎵🎶
 
-## Demo
+## [Demo](https://yuli-ana.github.io/apollo-music-share/)
 
 ![Apollo Music Share Demo](src/images/demo.gif)
