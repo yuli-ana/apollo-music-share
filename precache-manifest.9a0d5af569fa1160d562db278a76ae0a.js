@@ -1,6 +1,6 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "cc41708376daf2c7d0edb7d0dcf6b039",
+    "revision": "f240cb9c30a9a6a6272697da339ac17a",
     "url": "/apollo-music-share/index.html"
   },
   {
