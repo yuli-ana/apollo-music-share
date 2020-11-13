@@ -1,19 +1,19 @@
 {
   "files": {
-    "main.js": "/apollo-music-share/static/js/main.1fb52ec8.chunk.js",
-    "main.js.map": "/apollo-music-share/static/js/main.1fb52ec8.chunk.js.map",
+    "main.js": "/apollo-music-share/static/js/main.1c248880.chunk.js",
+    "main.js.map": "/apollo-music-share/static/js/main.1c248880.chunk.js.map",
     "runtime-main.js": "/apollo-music-share/static/js/runtime-main.a6487277.js",
     "runtime-main.js.map": "/apollo-music-share/static/js/runtime-main.a6487277.js.map",
     "static/js/2.db177b83.chunk.js": "/apollo-music-share/static/js/2.db177b83.chunk.js",
     "static/js/2.db177b83.chunk.js.map": "/apollo-music-share/static/js/2.db177b83.chunk.js.map",
     "index.html": "/apollo-music-share/index.html",
-    "precache-manifest.c25ac610a54d8a6b672a1e6c71216da4.js": "/apollo-music-share/precache-manifest.c25ac610a54d8a6b672a1e6c71216da4.js",
+    "precache-manifest.a99a4e2787182a87e71f7ea725414ad8.js": "/apollo-music-share/precache-manifest.a99a4e2787182a87e71f7ea725414ad8.js",
     "service-worker.js": "/apollo-music-share/service-worker.js",
     "static/js/2.db177b83.chunk.js.LICENSE.txt": "/apollo-music-share/static/js/2.db177b83.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
     "static/js/runtime-main.a6487277.js",
     "static/js/2.db177b83.chunk.js",
-    "static/js/main.1fb52ec8.chunk.js"
+    "static/js/main.1c248880.chunk.js"
   ]
 }
