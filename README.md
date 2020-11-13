@@ -8,4 +8,4 @@ Enjoy 🎶🎵🎶🎵🎶
 
 ## Demo
 
-![Apollo Music Share Demo](src/images/demo.gif)
+![Apollo Music Share Demo](src/images/demo-1.gif)
